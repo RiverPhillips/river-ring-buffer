@@ -1,8 +1,8 @@
 [package]
 name = "river-ring-buffer"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
-license-file = "LICENSE"
+license = "MIT OR Apache-2.0"
 description = "A simple ring buffer implementation"
 repository = "https://github.com/RiverPhillips/river-ring-buffer"
 readme = "README.md"
