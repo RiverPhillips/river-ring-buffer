@@ -1,4 +1,4 @@
-struct RingBuffer<T> {
+pub struct RingBuffer<T> {
     buffer: Vec<T>,
     write_index: usize,
     read_index: usize,
