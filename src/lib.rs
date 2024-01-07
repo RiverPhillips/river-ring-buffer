@@ -1,16 +1,20 @@
-struct RingBuffer {
-    buffer: Vec<i32>,
+struct RingBuffer<T> {
+    buffer: Vec<T>,
     write_index: usize,
     read_index: usize,
     capacity: usize,
 }
 
-impl RingBuffer {
+impl<T> RingBuffer<T>
+where
+    T: Default,
+    T: Copy,
+{
     /// Create a new ring buffer with the given capacity
     pub fn new(capacity: usize) -> Self {
         RingBuffer {
             capacity: capacity + 1,
-            buffer: vec![0; capacity + 1],
+            buffer: vec![T::default(); capacity + 1],
             write_index: 0,
             read_index: 0,
         }
@@ -19,7 +23,7 @@ impl RingBuffer {
     /// Read a value from the buffer
     ///
     /// Returns `None` if the buffer is empty.
-    pub fn read(&mut self) -> Option<i32> {
+    pub fn read(&mut self) -> Option<T> {
         if self.read_index == self.write_index {
             return None;
         }
@@ -33,7 +37,7 @@ impl RingBuffer {
     /// Write a value to the buffer
     ///
     /// If the buffer is full an error is returned.
-    pub fn put(&mut self, arg: i32) -> Result<(), &'static str> {
+    pub fn put(&mut self, arg: T) -> Result<(), &'static str> {
         if (self.write_index + 1) % self.capacity == self.read_index {
             return Err("Buffer is full");
         }
@@ -50,7 +54,7 @@ mod tests {
 
     #[test]
     fn it_returns_none_when_ring_buffer_empty() {
-        let mut buffer = RingBuffer::new(10); // Allocate a new ring buffer with capacity 10
+        let mut buffer: RingBuffer<i32> = RingBuffer::new(10); // Allocate a new ring buffer with capacity 10
 
         assert_eq!(None, buffer.read()); // Read from the buffer
     }
