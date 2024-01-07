@@ -2,7 +2,7 @@
 name = "river-ring-buffer"
 version = "0.1.0"
 edition = "2021"
-license-file = "LICENSE.txt"
+license-file = "LICENSE"
 description = "A simple ring buffer implementation"
 repository = "https://github."
 readme = "README.md"
