@@ -6,6 +6,7 @@ struct RingBuffer {
 }
 
 impl RingBuffer {
+    /// Create a new ring buffer with the given capacity
     pub fn new(capacity: usize) -> Self {
         RingBuffer {
             capacity: capacity + 1,
@@ -15,6 +16,9 @@ impl RingBuffer {
         }
     }
 
+    /// Read a value from the buffer
+    ///
+    /// Returns `None` if the buffer is empty.
     pub fn read(&mut self) -> Option<i32> {
         if self.read_index == self.write_index {
             return None;
@@ -26,6 +30,9 @@ impl RingBuffer {
         Some(value)
     }
 
+    /// Write a value to the buffer
+    ///
+    /// If the buffer is full an error is returned.
     pub fn put(&mut self, arg: i32) -> Result<(), &'static str> {
         if (self.write_index + 1) % self.capacity == self.read_index {
             return Err("Buffer is full");
