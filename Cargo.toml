@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 license-file = "LICENSE"
 description = "A simple ring buffer implementation"
-repository = "https://github."
+repository = "https://github.com/RiverPhillips/river-ring-buffer"
 readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
