@@ -1,3 +1,16 @@
+use std::fmt;
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BufferFullError;
+
+impl fmt::Display for BufferFullError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Buffer full")
+    }
+}
+
+type Result<T> = std::result::Result<T, BufferFullError>;
+
 pub struct RingBuffer<T> {
     buffer: Vec<T>,
     write_index: usize,
@@ -37,9 +50,9 @@ where
     /// Write a value to the buffer
     ///
     /// If the buffer is full an error is returned.
-    pub fn put(&mut self, arg: T) -> Result<(), &'static str> {
+    pub fn put(&mut self, arg: T) -> Result<()> {
         if (self.write_index + 1) % self.capacity == self.read_index {
-            return Err("Buffer is full");
+            return Err(BufferFullError);
         }
 
         self.buffer[self.write_index] = arg;
@@ -60,7 +73,7 @@ mod tests {
     }
 
     #[test]
-    fn it_returns_values_in_fifo_order() -> Result<(), &'static str> {
+    fn it_returns_values_in_fifo_order() -> Result<()> {
         let mut buffer = RingBuffer::new(10);
 
         buffer.put(1)?;
@@ -86,11 +99,11 @@ mod tests {
         buffer.put(2).unwrap();
         buffer.put(3).unwrap();
 
-        assert_eq!(Err("Buffer is full"), buffer.put(4));
+        assert_eq!(Err(BufferFullError), buffer.put(4));
     }
 
     #[test]
-    fn it_overwrites_oldest_value_when_buffer_is_full() -> Result<(), &'static str> {
+    fn it_overwrites_oldest_value_when_buffer_is_full() -> Result<()> {
         let mut buffer = RingBuffer::new(3);
 
         buffer.put(1)?;
