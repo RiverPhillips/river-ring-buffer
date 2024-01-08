@@ -1,7 +1,7 @@
 # River Ring Buffer
 
 [![Crates.io Version](https://img.shields.io/crates/v/river-ring-buffer)](https://crates.io/crates/river-ring-buffer)
-[![docs.rs (with version)](https://img.shields.io/docsrs/river-ring-buffer/0.4.0)](https://docs.rs/river-ring-buffer/0.4.0/river_ring_buffer/)
+[![docs.rs (with version)](https://img.shields.io/docsrs/river-ring-buffer/1.0.0)](https://docs.rs/river-ring-buffer/0.4.0/river_ring_buffer/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/riverphillips/river-ring-buffer/rust.yml)
 ![Crates.io License](https://img.shields.io/crates/l/river-ring-buffer)
 
@@ -39,6 +39,6 @@ fn main() -> Result<(), &'static str> {
     buffer.put(1)?;
     buffer.put(2)?;
     buffer.put(3)?;
-    buffer.put(4)?; // Returns Err("Buffer is full")   
+    buffer.put(4)?; // Returns Err(BufferFullError)   
 }
 ```
